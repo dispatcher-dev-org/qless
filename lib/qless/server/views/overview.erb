@@ -42,12 +42,12 @@
         <% end %>
         <a href="<%= u "/queues/#{CGI::escape(queue['name'])}" %>"><%= queue['name'] %></a>
       </td>
-      <td><%= queue['running']   %></td>
-      <td><%= queue['waiting']   %></td>
-      <td><%= queue['scheduled'] %></td>
-      <td><%= queue['stalled']   %></td>
-      <td><%= queue['depends']   %></td>
-      <td><%= queue['recurring'] %></td>
+      <td><a href="<%= u "/queues/#{CGI::escape(queue['name'])}/running" %>"><%= queue['running'] %></a></td>
+      <td><a href="<%= u "/queues/#{CGI::escape(queue['name'])}/waiting" %>"><%= queue['waiting'] %></a></td>
+      <td><a href="<%= u "/queues/#{CGI::escape(queue['name'])}/scheduled" %>"><%= queue['scheduled'] %></a></td>
+      <td><a href="<%= u "/queues/#{CGI::escape(queue['name'])}/stalled" %>"><%= queue['stalled'] %></a></td>
+      <td><a href="<%= u "/queues/#{CGI::escape(queue['name'])}/depends" %>"><%= queue['depends'] %></a></td>
+      <td><a href="<%= u "/queues/#{CGI::escape(queue['name'])}/recurring" %>"><%= queue['recurring'] %></a></td>
     </tr>
   <% end %>
   </tbody>

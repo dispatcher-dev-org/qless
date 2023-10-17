@@ -10,7 +10,7 @@
 	      <div class="span3">
 	        <h2 style="text-overflow: ellipsis; white-space: nowrap; overflow: hidden">
 	          <strong>
-	            | <%= job.state %> / <a href="<%= u "/queues/#{CGI::escape(job.queue_name)}" %>" title="<%= job.queue_name %><%= job.worker_name.nil? ? "/ #{job.worker_name}" : "" %>"><%= job.queue_name %></a><%= job.worker_name.nil? ? "/ #{job.worker_name}" : "" %>
+	            <span style="<%= job.state == 'complete' ? 'color:green;' : job.state == 'failed' ? 'color:red;' : 'color:grey;' %>"><%= job.state %></span>
 	          </strong>
 	        </h2>
 	      </div>
