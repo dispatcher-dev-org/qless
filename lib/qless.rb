@@ -65,37 +65,9 @@ module Qless
     end
 
     def tagged(tag, offset = 0, count = 25)
-      results = JSON.parse(@client.call('tag', 'get', tag, 0, 50_000))
+      results = JSON.parse(@client.call('tag', 'get', tag, offset, count))
       # Should be an empty array instead of an empty hash
       results['jobs'] = [] if results['jobs'] == {}
-
-      jobs = JSON.parse(@client.call('multiget', *results['jobs']))
-
-      # map job by id for easy lookup
-      jobs_by_id = jobs.each_with_object({}) do |job, hash|
-        hash[job['jid']] = job
-      end
-
-      results['jobs'].sort_by! do |jid|
-        job = jobs_by_id[jid]
-
-        case job['state']
-        when 'failed'
-          [0, -job['history'].last['when']]
-        when 'stalled'
-          [1, -job['history'].last['when']]
-        when 'running'
-          [2, -job['history'].last['when']]
-        when 'waiting'
-          [3, -job['history'].last['when']]
-        when 'complete'
-          [4, -job['history'].last['when']]
-        else
-          [5, -job['history'].last['when']]
-        end
-      end
-
-      results['jobs'] = results['jobs'][offset..count] || []
       results
     end
 
