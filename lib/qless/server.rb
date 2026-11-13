@@ -22,6 +22,11 @@ module Qless
 
     set :show_exceptions, false
 
+    # Sinatra 4.1+ rejects requests whose Host is not local when running in
+    # development. This app is mounted inside a host application, which does
+    # its own host checking, so permit every host. Older Sinatras ignore this.
+    set :host_authorization, permitted_hosts: []
+
     attr_reader :client
 
     def initialize(client)
